@@ -1,19 +1,32 @@
 <template>
   <div class="home">
     <div class="col">
-      <v-btn color="primary">
-        <v-icon
-            size="large"
-            color="green-darken-2"
-        >
-          mdi-domain
-        </v-icon>
+      <div>
+        <h2>
+          Team Members
+        </h2>
+        <span>({{ count }})</span>
+      </div>
+      <ElevatedButton>
+        <template v-slot:icon>
+          <i class="fa fa-plus" style="font-size: 14px;"></i>
+        </template>
         Invite Members
-      </v-btn>
+      </ElevatedButton>
     </div>
     <div class="col">
-      Row here
+      <ListComponent
+          v-for="(member, index) in members"
+          :key="member.email"
+          :name="member.name"
+          :email="member.email"
+          :role="member.role"
+          :index="index"
+          :isCurrentUser="member.isCurrentUser"></ListComponent>
+
     </div>
+    <div class="col"/>
+
   </div>
 </template>
 
@@ -21,8 +34,11 @@
 import {Options, Vue} from 'vue-class-component';
 import {useStore, Role} from "@/store";
 import {mapGetters} from 'vuex'
+import ElevatedButton from "@/components/ElevatedButton.vue";
+import ListComponent from "@/components/ListComponent.vue";
 
 @Options({
+  components: {ListComponent, ElevatedButton},
   computed: {
     ...mapGetters({
       members: 'getAllMembers',
@@ -33,6 +49,17 @@ import {mapGetters} from 'vuex'
 export default class HomeView extends Vue {
   members!: { name: string, email: string, role: Role, isCurrentUser: boolean }[]
   count!: number
+
+  mounted() {
+    window.addEventListener('click', (e : any) => {
+      if(!e.target.matches('.dropdown-btn')){
+        const dropdowns = document.querySelectorAll<HTMLElement>('.drop-down-content');
+        dropdowns.forEach(dropdown => {
+          dropdown.style.display = "none";
+        });
+      }
+    })
+  }
 
   store = useStore()
 
@@ -50,16 +77,12 @@ export default class HomeView extends Vue {
 
 <style scoped lang="scss">
 
-//color variable #6724ea declare below
-$secondary-color: #6724ea;
-
 .home {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
   padding: 40px 70px;
+  height: 100%;
 }
 
 .col {
@@ -70,11 +93,43 @@ $secondary-color: #6724ea;
   width: 100%;
   padding: 20px;
   border-radius: 5px;
-  background-color: white;
 }
+
+.col:nth-child(1) {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+
+    h2 {
+      font-size: 25px;
+      padding: 0;
+      margin: 0;
+    }
+
+    span {
+      color: #adadad;
+      padding-left: 5px;
+      font-weight: 500;
+    }
+  }
+
+}
+
 
 .col:nth-child(2) {
   flex: 1;
+  padding: 0;
+  background-color: white;
+  justify-content: start;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
 }
 
 
