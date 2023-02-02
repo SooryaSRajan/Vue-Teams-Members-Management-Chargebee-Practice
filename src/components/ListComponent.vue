@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
+import {Vue} from 'vue-class-component';
 import { Prop } from 'vue-property-decorator/lib/decorators/Prop';
 
 export default class ListComponent extends Vue {
@@ -43,18 +43,21 @@ export default class ListComponent extends Vue {
 
   controlDropDown() {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-
     const dropdowns = document.querySelectorAll<HTMLElement>('.drop-down-content');
     dropdowns.forEach(dropdown => {
       dropdown.style.display = "none";
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const dropdown = document.querySelectorAll<HTMLElement>('.drop-down-content')[this.index]!;
 
-    if (dropdown.style.display === "flex") {
-      dropdown.style.display = "none";
-    } else {
+    if (dropdown.style.display !== "flex") {
       dropdown.style.display = "flex";
+    } else if(dropdown.style.display === "flex") {
+      dropdown.style.display = "none";
+    }
+    else {
+      dropdown.style.display = "none";
     }
   }
 

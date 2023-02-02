@@ -1,4 +1,5 @@
 <template>
+  <AddEditMemberModal :is-edit="false"></AddEditMemberModal>
   <div class="home">
     <div class="col">
       <div>
@@ -17,7 +18,7 @@
     <div class="col">
       <ListComponent
           v-for="(member, index) in members"
-          :key="member.email"
+          :key="index"
           :name="member.name"
           :email="member.email"
           :role="member.role"
@@ -36,9 +37,10 @@ import {useStore, Role} from "@/store";
 import {mapGetters} from 'vuex'
 import ElevatedButton from "@/components/ElevatedButton.vue";
 import ListComponent from "@/components/ListComponent.vue";
+import AddEditMemberModal from "@/components/AddEditMemberModal.vue";
 
 @Options({
-  components: {ListComponent, ElevatedButton},
+  components: {ListComponent, ElevatedButton, AddEditMemberModal},
   computed: {
     ...mapGetters({
       members: 'getAllMembers',
@@ -51,6 +53,7 @@ export default class HomeView extends Vue {
   count!: number
 
   mounted() {
+    this.addNewRow();
     window.addEventListener('click', (e : any) => {
       if(!e.target.matches('.dropdown-btn')){
         const dropdowns = document.querySelectorAll<HTMLElement>('.drop-down-content');

@@ -28,12 +28,13 @@ export default class ElevatedButton extends Vue {
 
 <style scoped>
 button {
+  min-width: 130px;
   background-color: #6724ea;
   color: white;
-  padding: 8px 18px 8px 20px;
+  padding: 8px 35px 8px 35px;
   border-radius: 5px;
   border: none;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   cursor: pointer;
   display: flex;
@@ -51,7 +52,7 @@ button {
 }
 
 button:hover {
-  background-color: #5a1fcb;
+  background-color: #310d77;
 }
 
 </style>

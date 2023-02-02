@@ -12,7 +12,7 @@ import HomeView from '@/views/HomeView.vue';
 
 @Options({
   components: {
-    HomeView
+    HomeView,
   },
 })
 export default class HelloWorld extends Vue {
