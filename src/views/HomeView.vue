@@ -1,5 +1,6 @@
 <template>
   <AddEditMemberModal :is-edit="isEdit" v-if="openModal" @close="openModal = false" :email="emailUnderEdit"></AddEditMemberModal>
+  <RemoveAlertDialog :email="emailUnderEdit" v-if="openDropDown" @close="openDropDown = false" :delete-email="deleteMemberFinal"></RemoveAlertDialog>
   <div class="home">
     <div class="col">
       <div>
@@ -40,9 +41,10 @@ import {mapGetters} from 'vuex'
 import ElevatedButton from "@/components/ElevatedButton.vue";
 import ListComponent from "@/components/ListComponent.vue";
 import AddEditMemberModal from "@/components/AddEditMemberModal.vue";
+import RemoveAlertDialog from "@/components/RemoveAlertDialog.vue";
 
 @Options({
-  components: {ListComponent, ElevatedButton, AddEditMemberModal},
+  components: {RemoveAlertDialog, ListComponent, ElevatedButton, AddEditMemberModal},
   computed: {
     ...mapGetters({
       members: 'getAllMembers',
@@ -55,6 +57,7 @@ export default class HomeView extends Vue {
   members!: { name: string, email: string, role: Role, isCurrentUser: boolean }[]
   count!: number
   openModal = false;
+  openDropDown = false;
   isEdit = true;
   store = useStore();
 
@@ -67,7 +70,13 @@ export default class HomeView extends Vue {
   }
 
   deleteMember(email: string) {
-    //TODO: Delete member
+    this.openDropDown = true;
+    this.emailUnderEdit = email;
+  }
+
+  deleteMemberFinal(email: string) {
+    this.store.commit('deleteMember', email);
+    this.openDropDown = false;
   }
 
   mounted() {

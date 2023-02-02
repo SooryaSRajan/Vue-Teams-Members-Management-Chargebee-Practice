@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="dropdown">
+    <div class="dropdown" v-if="!isCurrentUser">
         <button @click="controlDropDown" class="dropdown-btn">
           <i class="fa fa-ellipsis-v" style="font-size: 16px;"></i>
         </button>
