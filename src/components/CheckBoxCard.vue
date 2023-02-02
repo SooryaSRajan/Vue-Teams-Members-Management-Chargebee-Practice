@@ -1,17 +1,16 @@
 <template>
   <div class="check-box-card">
     <div class="row-el">
-      <input type="checkbox" v-model="checked">
+      <input type="checkbox" @change="onChange($event.target.checked)" v-model="checked">
     </div>
     <div class="row-el">
       <div class="title">
-        {{title}}
+        {{ title }}
       </div>
       <div class="sub-title">
-        {{subtitle}}
+        {{ subtitle }}
       </div>
     </div>
-
   </div>
 </template>
 
@@ -21,16 +20,18 @@ import {Prop} from 'vue-property-decorator/lib/decorators/Prop';
 
 export default class HelloWorld extends Vue {
 
-  @Prop() private title!: string;
-  @Prop() private subtitle!: string;
-  @Prop() private checked!: boolean;
+  @Prop() public title!: string;
+  @Prop() public subtitle!: string;
+  @Prop() public checked!: boolean;
+
+  @Prop() private onChange!: (checked: boolean) => void;
 
 }
 </script>
 
 <style scoped lang="scss">
 
-.check-box-card{
+.check-box-card {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -40,21 +41,21 @@ export default class HelloWorld extends Vue {
   padding-top: 10px;
   padding-bottom: 20px;
 
-  input{
+  input {
     width: 17px;
     height: 17px;
   }
 
-  .row-el:nth-child(2){
+  .row-el:nth-child(2) {
     margin-left: 10px;
 
-    .title{
+    .title {
       font-size: 18px;
       font-weight: 500;
       color: #1c1c1c;
     }
 
-    .sub-title{
+    .sub-title {
       margin-top: 6px;
       font-size: 15px;
       font-weight: 500;

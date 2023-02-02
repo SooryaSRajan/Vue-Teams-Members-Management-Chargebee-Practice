@@ -1,5 +1,5 @@
 <template>
-  <AddEditMemberModal :is-edit="false"></AddEditMemberModal>
+  <AddEditMemberModal :is-edit="isEdit" v-if="openModal" @close="openModal = false" :email="emailUnderEdit"></AddEditMemberModal>
   <div class="home">
     <div class="col">
       <div>
@@ -8,7 +8,7 @@
         </h2>
         <span>({{ count }})</span>
       </div>
-      <ElevatedButton>
+      <ElevatedButton :on-click="() => {openModal = true; isEdit = false}">
         <template v-slot:icon>
           <i class="fa fa-plus" style="font-size: 14px;"></i>
         </template>
@@ -23,6 +23,8 @@
           :email="member.email"
           :role="member.role"
           :index="index"
+          :update-member="updateMember"
+          :delete-member="deleteMember"
           :isCurrentUser="member.isCurrentUser"></ListComponent>
 
     </div>
@@ -33,7 +35,7 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import {useStore, Role} from "@/store";
+import {Role, useStore} from "@/store";
 import {mapGetters} from 'vuex'
 import ElevatedButton from "@/components/ElevatedButton.vue";
 import ListComponent from "@/components/ListComponent.vue";
@@ -44,34 +46,39 @@ import AddEditMemberModal from "@/components/AddEditMemberModal.vue";
   computed: {
     ...mapGetters({
       members: 'getAllMembers',
-      count: 'getCount'
+      count: 'getCount',
+      initStore: 'initializeStore'
     })
   }
 })
 export default class HomeView extends Vue {
   members!: { name: string, email: string, role: Role, isCurrentUser: boolean }[]
   count!: number
+  openModal = false;
+  isEdit = true;
+  store = useStore();
+
+  emailUnderEdit = "";
+
+  updateMember(email: string) {
+    this.openModal = true;
+    this.isEdit = true;
+    this.emailUnderEdit = email;
+  }
+
+  deleteMember(email: string) {
+    //TODO: Delete member
+  }
 
   mounted() {
-    this.addNewRow();
-    window.addEventListener('click', (e : any) => {
-      if(!e.target.matches('.dropdown-btn')){
+    this.store.commit('initializeStore');
+    window.addEventListener('click', (e: any) => {
+      if (!e.target.matches('.dropdown-btn')) {
         const dropdowns = document.querySelectorAll<HTMLElement>('.drop-down-content');
         dropdowns.forEach(dropdown => {
           dropdown.style.display = "none";
         });
       }
-    })
-  }
-
-  store = useStore()
-
-  addNewRow() {
-    this.store.commit('addMember', {
-      name: 'New Member',
-      email: 'a@gmail.com',
-      role: Role.Analyst,
-      isCurrentUser: false
     })
   }
 

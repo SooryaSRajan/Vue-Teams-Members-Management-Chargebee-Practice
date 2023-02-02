@@ -24,12 +24,32 @@ export const store = createStore<State>({
         members: [],
     },
     mutations: {
+        initializeStore(state) {
+            const member = {
+                name: "Soorya S",
+                email: "soorya.s@chargebee.com",
+                role: Role.Admin,
+                isCurrentUser: true
+            }
+
+            if (state.members.find(m => m.email === member.email)) {
+                return;
+            }
+
+            state.members.push(member);
+
+        },
         addMember(state, member: { name: string, email: string, role: Role, isCurrentUser: boolean }) {
+            //only push if email is unique
+            if (state.members.find(m => m.email === member.email)) {
+                alert('Email already exists')
+                return;
+            }
             state.members.push(member);
         },
-        updateMember(state, member: { name: string, email: string, role: Role, isCurrentUser: boolean }) {
+        updateMember(state, member: { email: string, role: Role }) {
             const index = state.members.findIndex(m => m.email === member.email);
-            state.members[index] = member;
+            state.members[index].role = member.role;
         },
         deleteMember(state, member: { name: string, email: string, role: Role, isCurrentUser: boolean }) {
             const index = state.members.findIndex(m => m.email === member.email);
@@ -38,7 +58,8 @@ export const store = createStore<State>({
     },
     getters: {
         getAllMembers(state) {
-            return state.members;
+            //reverse list without mutating original array
+            return state.members.slice().reverse();
         },
         getCount(state) {
             return state.members.length;

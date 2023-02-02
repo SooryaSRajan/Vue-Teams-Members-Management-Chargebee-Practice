@@ -21,8 +21,8 @@
           <i class="fa fa-ellipsis-v" style="font-size: 16px;"></i>
         </button>
         <div class="drop-down-content">
-          <button>Edit Role</button>
-          <button>Remove</button>
+          <button @click="updateMember(this.email)">Edit Role</button>
+          <button @click="deleteMember(this.email)">Remove</button>
         </div>
     </div>
   </div>
@@ -40,6 +40,10 @@ export default class ListComponent extends Vue {
   @Prop() private role!: string;
   @Prop() private isCurrentUser!: boolean;
   @Prop() private index!: number;
+
+  @Prop() private deleteMember!: (email: string) => void;
+  @Prop() private updateMember!: (email: string) => void;
+
 
   controlDropDown() {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
