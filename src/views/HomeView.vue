@@ -36,12 +36,12 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import {Role, useStore} from "@/store";
+import {Role, useStore} from "../store/index";
 import {mapGetters} from 'vuex'
-import ElevatedButton from "@/components/ElevatedButton.vue";
-import ListComponent from "@/components/ListComponent.vue";
-import AddEditMemberModal from "@/components/AddEditMemberModal.vue";
-import RemoveAlertDialog from "@/components/RemoveAlertDialog.vue";
+import ElevatedButton from "../components/ElevatedButton.vue";
+import ListComponent from "../components/ListComponent.vue";
+import AddEditMemberModal from "../components/AddEditMemberModal.vue";
+import RemoveAlertDialog from "../components/RemoveAlertDialog.vue";
 
 @Options({
   components: {RemoveAlertDialog, ListComponent, ElevatedButton, AddEditMemberModal},

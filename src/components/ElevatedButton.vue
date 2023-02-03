@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import {Vue} from "vue-class-component";
-import {Prop} from 'vue-property-decorator/lib/decorators/Prop';
+import {Prop} from 'vue-property-decorator';
 
 export default class ElevatedButton extends Vue {
 

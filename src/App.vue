@@ -8,7 +8,7 @@
 
 import {Prop} from 'vue-property-decorator';
 import {Options, Vue} from 'vue-class-component';
-import HomeView from '@/views/HomeView.vue';
+import HomeView from './views/HomeView.vue';
 
 @Options({
   components: {

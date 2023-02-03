@@ -39,11 +39,11 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import {Prop} from 'vue-property-decorator/lib/decorators/Prop';
-import ElevatedButton from "@/components/ElevatedButton.vue";
-import ElevatedButtonWhite from "@/components/ElevatedButtonWhite.vue";
-import {Role, useStore} from "@/store";
-import CheckBoxCard from "@/components/CheckBoxCard.vue";
+import {Prop} from 'vue-property-decorator';
+import {Role, useStore} from "../store";
+import CheckBoxCard from "../components/CheckBoxCard.vue";
+import ElevatedButtonWhite from "../components/ElevatedButtonWhite.vue";
+import ElevatedButton from "../components/ElevatedButton.vue";
 
 @Options({
   components: {
