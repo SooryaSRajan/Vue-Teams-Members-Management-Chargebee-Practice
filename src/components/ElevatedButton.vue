@@ -19,7 +19,6 @@ export default class ElevatedButton extends Vue {
   @Prop() private onClick!: () => void;
 
   get isAppBoxSlotActive() {
-    console.log(this.$slots);
     return !!this.$slots['icon'];
   }
 }
