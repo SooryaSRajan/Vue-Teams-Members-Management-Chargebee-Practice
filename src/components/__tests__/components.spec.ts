@@ -6,7 +6,6 @@ import ListComponent from "../ListComponent.vue";
 import RemoveAlertDialog from "../RemoveAlertDialog.vue";
 import AddEditMemberModal from "../AddEditMemberModal.vue";
 
-//addEditMemberModal, check if isEdit is true and email is soorya@chargebee.com, then check if the title is Change role for " + email
 describe('AddEditMemberModal.vue', () => {
     it('renders props.email when passed', () => {
         const email = 'soorya@chargebee.com'
@@ -15,9 +14,6 @@ describe('AddEditMemberModal.vue', () => {
             props: {email, isEdit}
         })
         expect(wrapper.text()).toMatch("Change role for " + email)
-        const input_data = wrapper.findAll('.input-data')
-        // expect(!input_data[0].exists()).toBe(false)
-        // expect(!input_data[1].exists()).toBe(false)
     })
 
     it('renders input fields when passed isEdit false', () => {
