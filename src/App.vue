@@ -15,7 +15,7 @@ import HomeView from '@/views/HomeView.vue';
     HomeView,
   },
 })
-export default class HelloWorld extends Vue {
+export default class App extends Vue {
   @Prop() private msg!: string;
 
   inputData = 'Hello World';

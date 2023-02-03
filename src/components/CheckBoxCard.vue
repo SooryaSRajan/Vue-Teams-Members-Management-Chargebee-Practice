@@ -18,7 +18,7 @@
 import {Vue} from 'vue-class-component';
 import {Prop} from 'vue-property-decorator/lib/decorators/Prop';
 
-export default class HelloWorld extends Vue {
+export default class CheckBoxCard extends Vue {
 
   @Prop() public title!: string;
   @Prop() public subtitle!: string;
